@@ -195,6 +195,40 @@ foo = function (){
   console.log(2);
 }
 
+// --------------------------------
+
+// Duplicate function declarations over ride each other 
+
+// ACTUAL CODE
+// ------------
+foo() // logs 2
+
+function foo (){
+  console.log (1); 
+}
+
+foo = function(){
+  console.log(3);
+}
+
+function foo (){
+  console.log(2);
+}
+
+// HOISTED CODE 
+// -------------
+
+function foo(){
+  console.log(2);
+}
+
+foo() // logs 2
+
+foo = function(){
+  console.log(3);
+}
+
+// ------------
 
 
 
