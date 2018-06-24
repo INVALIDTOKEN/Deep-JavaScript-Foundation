@@ -12,7 +12,7 @@
 
 // [ EXAMPLE 1 ]
 
-// Actual code 
+// ACTUAL CODE
 // -------------
 a;
 b;
@@ -22,7 +22,7 @@ b;
 a;
 // -------------
 
-// How the compiler runs the code 
+// HOISTED CODE
 //-------------------------------
 var a;
 var b;
@@ -52,7 +52,7 @@ var d = function (){
 }
 // ------------
 
-// HOW THE COMPILER SEES THE CODE 
+// HOISTED CODE
 //-------------------------------
 function b(){
   return c;
@@ -94,7 +94,7 @@ function usinglet (){
   // 1. When the compiler reads the code it look for formal variable declaration and when it founds one it creates some space for that variable in the correct scope collection, here at complile time some space is made for the identifier " a " inside the scope collection of "usingvar" function and some space is created for the identifier " b " in the scope collecion of " usinglet " function. [so this step is same for both the let and var keyword].
 
   // [var keyword does this]
-  // 2.1 At run time ( when the engine reads the code ) as soon as the engine enters the scope it initializes all the space that were created at complile time using var with a value of undefined. So now those variables are available to be used through the entire scope.
+  // 2.1 At run time ( when the engine reads the code ) as soon as the engine enters the scope it initializes all the empty space that were created at complile time using var with a value of undefined. So now those variables are available to be used through the entire scope.
 
   // [let keyword does this]
   // 2.2 At run time variable space created using let keyword are not initialized to undefined at the beginning of the scope, they are initialized when the engine encounters the let keyword in the actual code ( in this case line number 87 ). So the period between the beginning of the scope and the actual declaration of the variable is called the tempral dead zone and we cannot access that variable inside temporal dead zone. This is because inside temporal dead zone only the space is created for the varible and no value is present at that space to be accessed. 
@@ -124,10 +124,76 @@ let xlet = 'outer value';
 // So TDZ is important because it helps us in debugging the errors.  
 
 
+// IMPORTANT EXAMPLE
+// ACTUAL CODE
+
+foo(); // 1
+
+var foo;
+
+function foo() {
+	console.log( 1 );
+}
+
+foo = function() {
+	console.log( 2 );
+};
+
+// -------------
+// EXPLANATION OF HOW THE COMPILER RUNS THE CODE 
+// At compile time variable declarations are handled. 
+  // [At line-132] The compiler sees that foo is declared using the keyword var so it tells the scope manager to create some space in the correct scope collection (in this case the global scope collection) with the identifier name foo 
+  // [At line-134] The compiler sees a formal function declaration with the identifier named foo, so the compiler ask the scope manager to first create some space for the identifier and then put the reference to the function in that space. Here the space is already created (due to line-132) so the scope manager just puts the reference to the function in the space. 
+  // The rest of the statements are assignment or execution operation so they are handled at complile time. 
+
+// At the beginning of the scope the engine initializes all the empty spaces created at complile time using var with a value of undefined, but in this case there is no empty space present. (foo has a reference to a function so it is not empty)
+
+// HOISTED CODE 
+function foo(){
+  console.log(1);
+}
+
+foo(); // 1
+
+foo = function (){
+  console.log(2);
+}
 
 
+// If me make another modification to the original code above 
+// ACTUAL CODE 
+// ----------
 
+foo();
 
+var foo = 10; 
+
+function foo(){
+  console.log(1);
+}
+
+console.log(foo);
+
+foo = function (){
+  console.log(2);
+}
+
+// HOISTED CODE
+// -------------
+
+function foo (){
+  console.log(1);
+}
+
+foo(); // logs 1
+
+foo = 10;
+
+console.log(foo) // logs 10
+
+foo = function (){
+  console.log(2);
+}
 
 
 
