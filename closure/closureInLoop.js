@@ -1,11 +1,11 @@
-// DO NOT RUN THE COMPLETE CODE BUT YOU CAN RUN THE CODE SNIPPITS SEPARATELY
+// DO NOT RUN THE COMPLETE CODE BUT YOU CAN RUN THE CODE SNIPPETS SEPARATELY
 
 let array = [];
 
 // 1. The problem with this function is that the variable i is not block scoped as it appears, it is actually function scoped. 
 // 2. Futhermore the parent scope of logi function is the scope of function closureProblem.
 // 3. There is only 1 execution context which is of the function closureProblem, the for loop just runs the block 2 times without making any execution context because there is no block scope. 
-// 4. The logi function has a closure over a single value of i
+// 4. Even though the reference of the logi function is passed as an argument to push method of array, still logi function has a closure over a single value of i 
 function closureProblem(){
   array = [];
   for(var i = 0; i < 2; i++){
