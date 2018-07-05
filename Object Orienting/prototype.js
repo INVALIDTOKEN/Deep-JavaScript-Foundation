@@ -46,22 +46,7 @@ a1.identify();
 
 // [NOTE - 2] Here we can see how dynamically deciding the value of "this" inside a function is helpful.
   // Beacause Foo.prototype.identify is a this aware function that is loging the value of this.me but Foo.prototype do not even have a me property. 
-  // But because the value of "this" is decided how the function is called so by implicit binding rule "this" keyword resolves to a1 object.
-
-
-a1.identify = function(){  // Shadowing
-  console.log("Hello, " + this.identify() + ".");  // Here we wanted to execute the identify method present inside the prototype of the object.
-}
-a1.identify();  // [Error] : infinite recursion.
-// [HOW] How do we resolve this infinite recursion error.
-
-// [IMP] [we might think that this may be the solution but its not]
-a1.identify = function(){  // Shadowing
-  console.log("Hello, " + this.__proto__.identify() + ".");  
-  // [NOTE] This solution is not going to work because
-    // At Line-27 in this file the "this" keyword is going to resolve to the __proto__ object that is the Foo.prototype itself.
-}
-a1.identify();
+  // But because the value of "this" is decided how the function is called, so by implicit binding rule "this" keyword resolves to a1 object.
 
 
 
